@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -24,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -106,31 +110,61 @@ internal class MainActivity : AppCompatActivity() {
                 BackHandler {
                     finish()
                 }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.Center)
-                ) {
-                    Spacer(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(Color.Black))
-                    Block(text = "default")
-                    Block(
-                        text = "slide in/out",
-                        enter = slideInHorizontally(),
-                        exit = slideOutHorizontally(),
-                    )
-                    Block(
-                        text = "slide >>",
-                        enter = slideInHorizontally(initialOffsetX = { -it }),
-                        exit = slideOutHorizontally(targetOffsetX = { it }),
-                    )
-                    Block(
-                        text = "slide ><",
-                        enter = slideInHorizontally(initialOffsetX = { -it }),
-                        exit = slideOutHorizontally(targetOffsetX = { -it }),
-                    )
+                LazyColumn(Modifier.fillMaxWidth()) {
+                    item {
+                        Spacer(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(64.dp)
+                            .background(Color.Gray))
+                        Spacer(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(Color.Black))
+                    }
+                    item {
+                        Block(text = "default")
+                    }
+                    item {
+                        Block(
+                            text = "slide in/out",
+                            enter = slideInHorizontally(),
+                            exit = slideOutHorizontally(),
+                        )
+                    }
+                    item {
+                        Block(
+                            text = "slide >>",
+                            enter = slideInHorizontally(initialOffsetX = { -it }),
+                            exit = slideOutHorizontally(targetOffsetX = { it }),
+                        )
+                    }
+                    item {
+                        Block(
+                            text = "slide ><",
+                            enter = slideInHorizontally(initialOffsetX = { -it }),
+                            exit = slideOutHorizontally(targetOffsetX = { -it }),
+                        )
+                    }
+                    item {
+                        Block(
+                            text = "fade in/out",
+                            enter = fadeIn(),
+                            exit = fadeOut(),
+                        )
+                    }
+                    item {
+                        Block(
+                            text = "expand in shrink out",
+                            enter = expandIn(),
+                            exit = shrinkOut(),
+                        )
+                    }
+                    item {
+                        Spacer(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(64.dp)
+                            .background(Color.Gray))
+                    }
                 }
             }
         }
